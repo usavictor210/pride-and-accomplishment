@@ -1,0 +1,49 @@
+body {
+  font-family: arial, sans-serif;
+  background: #CFFFE5;
+  margin: 32px;
+  font-size: 20px;
+}
+
+button {
+  border-radius: 4px;
+  background: white;
+  border-color: black;
+  font-size: 15px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:focus {
+  outline: 0;
+}
+
+.tabBtn {
+  font-size: 1.3em;
+}
+
+.prestige {
+  border: solid;
+  border-color: green;
+  color: green;
+}
+
+.upgrade {
+  width: 150px;
+  height: 150px;
+}
+
+#wipeSave {
+  border-color: #FF0000;
+  color: #FF0000;
+  background: black;
+}
+
+.displayNumber {
+  color: goldenrod;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-shadow: 2px 2px 2px black;
+}
