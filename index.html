@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     
-    <script src="ExpantaNum.js"></script>
-    <script src="saving.js"></script>
-    <script src="script.js"></script>
+    <script src="/ExpantaNum.js" defer></script>
+    <script src="/saving.js" defer></script>
+    <script src="/script.js" defer></script>
   </head>  
   <body>
-    <button onclick="switchTabs('generator')" class="tabBtn">Generator</button> <button onclick="switchTabs('options')" class="tabBtn">Options</button> <button onclick="switchTabs('achievements')" class="tabBtn">Achievements</button> <button onclick="switchTabs('prestige')" class="tabBtn prestige">Prestige</button><br><br>
+    <button onclick="switchTabs('generator')" class="tabBtn">Generator</button> <button onclick="switchTabs('options')" class="tabBtn">Options</button> <button onclick="switchTabs('achievements')" class="tabBtn">Achievements</button> <button onclick="switchTabs('prestige')" class="tabBtn prestige">Prestige</button> <button onclick="switchTabs('autobuy')" class="tabBtn autobuyer" id="autobuyTab">Autobuyers</button><br><br>
     <div id="generator" class="tabContent">
       You have <span id="dopamineDisplay" class="displayNumber">0.00</span> dopamine.<br>
       You are making <span id="dopamineProduction">1.00</span> dopamine every second.<br><br>
@@ -25,14 +25,21 @@
     <div id="options" style="display: none" class="tabContent">
       <button onclick="save()">Save game</button> <button onclick="load(localStorage.getItem('paacsv'))">Load Game</button><br>
       <button onclick="wipe()" id="wipeSave">Wipe Save</button><br><br>
-      <a href="https://katakana1.github.io/pride-and-accomplishment/instructions.html">Instructions for the game</a>
+      <a href="https://katakana1.github.io/pride-and-accomplishment/instructions.html">How to play</a>
     </div>
     <div id="achievements" style="display: none">
       You have earned <span id="achr1" class="displayNumber">0</span> row 1 achievements, giving a boost of <span id="achr1bon" class="displayNumber">1.00x</span> to dopamine production. Next achievement at <span id="achr1req" class="displayNumber">10</span> dopamine.
+      <span id="extraAchSpan"></span>
     </div>
     <div id="prestige" style="display: none">
       You have <span id="bAchs" class="displayNumber">0</span> banked achievements.<br><br>
       <button onclick="prestige()" class="prestige">Prestige</button><br>
+      <div style="text-align: center">
+        <button onclick="buyPrestUpg(0)" class="prestige upgrade">Buy max all autobuyer for e10 banked achievements.</button> <button onclick="buyPrestUpg(1)" class="prestige upgrade">Buy prestige autobuyer for e20 banked achievements.</button> <button onclick="buyPrestUpg(2)" class="prestige upgrade">Buy a new row of achievements for e30 banked achievements.</button>
+      </div>
+    </div>
+    <div id="autobuy" style="display: none">
+      <button onclick="autoSwitch(0)" class="autobuyer" id="auto1">Max all autobuyer: <span id="autoSwitch1">OFF</span></button> <button onclick="autoSwitch(1)" class="autobuyer" id="auto2">Prestige Autobuyer: <span id="autoSwitch2">OFF</span></button>
     </div>
   </body>
 </html>
