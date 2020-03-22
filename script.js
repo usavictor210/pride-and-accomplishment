@@ -141,8 +141,6 @@ function switchTabs(dest){
   update(Game.currentTab).style.display = "block";
 }
 
-switchTabs(Game.currentTab);
-
 function updateText(){
   update("dopamineDisplay").textContent = notate(E(Game.dop));
   update("dopamineProduction").textContent = notate(Game.dps);
