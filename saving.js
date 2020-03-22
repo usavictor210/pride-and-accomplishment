@@ -13,7 +13,7 @@ function save() { // Katakana's, from this
 function wipe() { // Reinhardt's, from TI
 	if (confirm('Do you really want to wipe this save?')) {
 		Game = {
-      version: 3,
+      version: 4,
       dop: E(0),
       highestDop: E(1),
       gens: E(0),
@@ -21,6 +21,7 @@ function wipe() { // Reinhardt's, from TI
       dps: E(1),
       currentTab: "generator",
       achr1s: E(0),
+      achr1pow: E(1.01),
       achr1req: E(10),
       achr1mlt: E(1),
       achr1t: E(0),
@@ -29,6 +30,9 @@ function wipe() { // Reinhardt's, from TI
       prestUpgRebuyable: [false,false,true],
       prestUpgs: [false,false,E(0)],
       prestUpgCosts: [E("e10"),E("e20"),E("e30")],
+      autoUnl: false,
+      autobuyers: [true,true],
+      extraAchs: [],
     }
 	}
 }
@@ -58,6 +62,12 @@ function load(x) { // Patcail's, from "5 hours"
     for(i in Game.prestUpgCosts){
       Game.prestUpgCosts[i] = ex(Game.prestUpgCosts[i]);
     }
+    for(i in Game.extraAchs){
+      Game.extraAchs[i].amt = ex(Game.extraAchs[i].amt);
+      Game.extraAchs[i].pow = ex(Game.extraAchs[i].pow);
+      Game.extraAchs[i].req = ex(Game.extraAchs[i].req);
+      Game.extraAchs[i].mlt = ex(Game.extraAchs[i].mlt);
+    }
   }
   if(Game.version == 0){
     Game.version = 1;
@@ -72,5 +82,14 @@ function load(x) { // Patcail's, from "5 hours"
   if(Game.version == 2){
     Game.version = 3;
     Game.prstUnl = false;
+  }
+  if(Game.version == 3){
+    Game.version = 4;
+    Game.prestUpgRebuyable = [false,false,true];
+    Game.prestUpgs = [false,false,E(0)];
+    Game.prestUpgCosts = [E("e10"),E("e20"),E("e30")];
+    Game.autoUnl = false;
+    Game.autobuyers = [true,true];
+    Game.extraAchs = [];
   }
 }
