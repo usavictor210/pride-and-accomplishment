@@ -74,15 +74,17 @@ function buyMult(amt){
 }
 
 function prestige(){
-  Game.achr1bfr = Game.achr1t;
-  Game.dop = E(0);
-  Game.highestDop = E(1);
-  Game.gens = E(0);
-  Game.genCost = E(10);
-  Game.dps = E(1);
-  Game.achr1s = E(0);
-  Game.achr1req = E(10);
-  Game.achr1mlt = E(1);
+  if(Game.achr1s.gte(1)){
+    Game.achr1bfr = Game.achr1t;
+    Game.dop = E(0);
+    Game.highestDop = E(1);
+    Game.gens = E(0);
+    Game.genCost = E(10);
+    Game.dps = E(1);
+    Game.achr1s = E(0);
+    Game.achr1req = E(10);
+    Game.achr1mlt = E(1);
+  }
 }
 
 function buyPrestUpg(upg,mode = 0){
