@@ -3,6 +3,7 @@ body {
   background: #CFFFE5;
   margin: 32px;
   font-size: 20px;
+  transition-duration: 0.3s;
 }
 
 button {
@@ -33,6 +34,12 @@ button:focus {
 .upgrade {
   width: 150px;
   height: 150px;
+}
+
+.autobuyer {
+  border: solid;
+  border-color: blue;
+  color: blue;
 }
 
 #wipeSave {
