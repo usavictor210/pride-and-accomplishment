@@ -75,29 +75,26 @@ function buyMult(amt){
 
 function prestige(){
   if(Game.achr1s.gte(1)){
-    Game.achr1bfr = Game.achr1t;
-    Game.dop = E(0);
-    Game.highestDop = E(1);
-    Game.gens = E(0);
-    Game.genCost = E(10);
-    Game.dps = E(1);
-    Game.achr1s = E(0);
-    Game.achr1req = E(10);
-    Game.achr1mlt = E(1);
+  Game.achr1bfr = Game.achr1t;
+  Game.dop = E(0);
+  Game.highestDop = E(1);
+  Game.gens = E(0);
+  Game.genCost = E(10);
+  Game.dps = E(1);
+  Game.achr1s = E(0);
+  Game.achr1req = E(10);
+  Game.achr1mlt = E(1);
   }
 }
 
 function buyPrestUpg(upg,mode = 0){
   if(mode == 0){
-  if(Game.achr1bfr.gte(Game.prestUpgCosts[upg]) && Game.prestUpgs[upg] != true){
+  if(Game.achr1bfr.gte(Game.prestUpgCosts[upg]) && (Game.prestUpgs[upg] != true || Game.prestUpgRebuyable[upg] == true)){
     Game.achr1bfr = Game.achr1bfr.sub(Game.prestUpgCosts[upg]);
     if(Game.prestUpgRebuyable[upg] == false){
       Game.prestUpgs[upg] = true;
     } else {
       Game.prestUpgs[upg] = Game.prestUpgs[upg].add(1);
-      if(E(Game.prestUpgs[3]).eq(1)){
-        Game.prestUpgs[3] = true;
-      }
       if(upg == 2){
         Game.extraAchs.push(new achRow());
       }
@@ -107,9 +104,9 @@ function buyPrestUpg(upg,mode = 0){
     Game.autoUnl = true;
   }
   } else {
-  if(Game.achr1bfr.gte(Game.prestUpgCosts[upg]) && Game.prestUpgs[upg] != true){
+  if(Game.achr1bfr.gte(Game.prestUpgCosts[upg]) && (Game.prestUpgs[upg] != true || Game.prestUpgRebuyable[upg] == true)){
     return "lightblue";
-  } else if(Game.prestUpgs[upg] != true){
+  } else if(Game.prestUpgs[upg] != true || Game.prestUpgRebuyable[upg] == true){
     return "pink";
   } else {
     return "lightgreen";
@@ -148,7 +145,7 @@ function doCalculations(){
     if(i == 0){
       Game.extraAchs[i].amt = Game.achr1s.add(1).log10().div(10).floor();
     } else {
-      Game.extraAchs[i].amt = Game.extraAchs[i-1].add(1).log10().div(10).floor();
+      Game.extraAchs[i].amt = Game.extraAchs[i-1].amt.add(1).log10().div(10).floor();
     }
     Game.extraAchs[i].req = E("e10").pow(Game.extraAchs[i].amt.add(1));
     Game.extraAchs[i].mlt = E(Game.extraAchs[i].pow).pow(Game.extraAchs[i].amt);
@@ -157,6 +154,11 @@ function doCalculations(){
     } else {
       Game.extraAchs[i-1].pow = E(1.01).pow(E(Game.extraAchs[i].mlt));
     }
+  }
+  if(!Game.prestUpgs[2].eq(E(0))){
+    Game.prestUpgCosts[2] = EN.tetr(12,Game.prestUpgs[2].add(2));
+  } else {
+    Game.prestUpgCosts[2] = E("e30");
   }
   now = Date.now();
 }
@@ -180,7 +182,7 @@ function getHTMLOfAchRows(){
   var i;
   var endString = "";
   for(i in Game.extraAchs){
-    endString += "<br>You have earned <span class='displayNumber'>" + notate(Game.extraAchs[i].amt,0) + "</span>" + " row " + round(i+2) + " achievements, giving a boost of <span class='displayNumber'>^" + notate(Game.extraAchs[i].mlt) + "</span> to row " + round(i+1) + " achievements. Next achievement at <span class='displayNumber'>" + notate(Game.extraAchs[i].req) + "</span> row " + round(i+1) + " achievements.";
+    endString += "<br>You have earned <span class='displayNumber'>" + notate(Game.extraAchs[i].amt,0) + "</span>" + " row " + round(i*1+2) + " achievements, giving a boost of <span class='displayNumber'>^" + notate(Game.extraAchs[i].mlt) + "</span> to row " + round(i*1+1) + " achievements. Next achievement at <span class='displayNumber'>" + notate(Game.extraAchs[i].req) + "</span> row " + round(i*1+1) + " achievements.";
   }
   return endString;
 }
@@ -214,6 +216,7 @@ function updateText(){
     update("autoSwitch2").textContent = "OFF";
   }
   update("extraAchSpan").innerHTML = getHTMLOfAchRows();
+  update("newAchRowCost").textContent = notate(Game.prestUpgCosts[2]);
 }
 
 function updateStyles(){
